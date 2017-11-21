@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\title{Intro to Computer Science Assignment 3}
+\date{2017-09-27}
+\author{Yiping Deng}
+\begin{document}
+\maketitle
+\paragraph{Problem 3.1}
+Lemma: The number of elements in the power set $P(s)$ of a finite set S with n elements is $2^n$ \\
+Proof:\\
+\subparagraph{Basis:} Given a empty set $A = \emptyset $, its power set $P(A) = \{ \emptyset \}$
+\subparagraph{Inductive proof:} Assume Lemma holds for set $A$ with k element
+$\implies $the size of its power set $P(A)$ is $ 2^k \implies $
+for set with a extra element $m$, $ B = \{ m \} \cup A $ has $ k + 1 $ elments $\implies $
+in its power set $P(B)$, it includes all the element in $P(A) $ and with a a set with its element set unioned with element $m$
+$ \implies P(B) = P(A) \cup \{ C \cup \{ m \} \mid C \in P(A) \} \implies$ the size of $P(B)$ is twice the size of $P(A) \implies$ the size of $P(B)$ is equal to $2^{k + 1}$
+
+\paragraph{Problem 3.2}
+\subparagraph{a)} \begin{itemize}
+\item It is not reflexive: $ a = b \implies \neg a \neq b $
+\item It is symmetric: $ a = b \implies b = a $
+\item It is transitive: $ a = b \land b = c \implies a = c $
+\end{itemize}
+\subparagraph{b)} \begin{itemize}
+\item It is reflexive: $ \mid a - a \mid = 0 \leq 3 \implies \forall a \in A.(a, a) \in R$
+\item It is symmetric: $ \mid a - b \mid \leq 3 \iff \mid b - a \mid \leq 3$
+\item It is not transitive: $ \mid a - b \mid \leq 3 \land \mid b - c \mid \leq 3 \not \implies \mid a - c \mid \leq 3 $ .
+A example:
+$ a = 3, b = 6, c = 9 \implies \mid a - b \mid \leq 3 , \mid b - c \mid \leq 3 , \mid a - c \mid \geq 3 $
+\end{itemize}
+\subparagraph{c)} \begin{itemize}
+\item It is reflexive: $ \forall a \in \mathbb{Z} .(a \, mod \, 10) = (b \, mod \, 10) $
+\item It is symmetric: $ \forall a,b \in \mathbb{Z}.(a \, mod \, 10) = (b \, mod \, 10) \\ \implies (b \, mod \, 10) = (a \, mod \, 10) \implies \forall (a,b) \in R, (b,a) \in R$
+    \paragraph{Problem 3.3} in problem3.hs file
+    \paragraph{Problem 3.4} in problem4.hs file (in the comment)
+
+\end{itemize}
+\end{document}

@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{a} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+    \PYG{k+kt}{int} \PYG{n}{b} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+    \PYG{k}{do}\PYG{p}{\PYGZob{}}
+        \PYG{n}{b} \PYG{o}{=} \PYG{n}{b} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{;}
+        \PYG{n}{a} \PYG{o}{=} \PYG{n}{a} \PYG{o}{+} \PYG{n}{b}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{b} \PYG{o}{!=} \PYG{l+m+mi}{10}\PYG{p}{);}
+    \PYG{k}{return} \PYG{n}{a}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

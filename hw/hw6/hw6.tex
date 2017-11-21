@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{minted}
+\usepackage{fancyvrb}
+\title{Intro to Computer Science Assignment 2}
+\date{2017-09-20}
+\author{Yiping Deng}
+\begin{document}
+\maketitle
+\paragraph{6.1}
+Giving two boolean variable $P,Q$\\
+By truth table, we have $ P \to Q = \neg P \lor Q $
+\begin{align*}
+  P \lor Q = \neg \neg P \lor Q = \neg P \to Q \\
+  P \land Q = \neg (\neg P \lor \neg Q) = \neg( \neg \neg P \to \neg Q) = \neg (P \to \neg Q)
+\end{align*}
+
+
+\paragraph{6.2}
+\subparagraph{1)}
+Truth table proof:
+\inputminted{text}{table1.md}
+\newpage
+\inputminted{text}{table2.md}
+\textbf{So, 2}
+\subparagraph{2)}
+DNF form:
+\begin{align*}
+    \varphi(M, N, P, Q, R, S) &= \\
+    &= ((\neg (P \lor Q \lor R \lor S)) \lor (P \land Q \land \land R \land S))) \land M \land \neg N \\
+    &= (\neg P \land \neg Q \land \neg R \land \neg S \land M \land \neg N) \lor (P \land Q \land R \land S \land M \land \neg N) \\
+\end{align*}
+
+\subparagraph{3)}
+\begin{align*}
+  \varphi(M, N, P, Q, R, S) &= (\neg P \lor Q) \land (\neg Q \lor R) \land ( \neg R \lor S ) \land (\neg S \lor P) \land M \land \neg N \\
+  (\neg P \lor Q) \land (\neg Q \lor R) &= ((\neg P \lor Q) \land \neg Q ) \lor ((\neg P \lor Q) \land R) \\
+  &= (\neg P \land \neg Q) \lor (Q \land \neg Q) \lor ((\neg P \lor Q) \land R) \\
+  &= (\neg P \land \neg Q) \lor 0 \lor ((\neg P \lor Q) \land R)\\
+  &= \neg (P \lor Q) \lor ((\neg P \lor Q) \land R)\\
+  (\neg R \lor S) \land (\neg S \lor P) &= \neg (R \lor S) \lor ((\neg R \lor S) \land P) \\
+  &(\neg (R \lor S) \lor ((\neg R \lor S) \land P)) \land (\neg (P \lor Q) \lor ((\neg P \lor Q) \land R)) \\
+  &= (\neg (P \lor Q \lor R \lor S)  \\
+  &\lor ((\neg R \lor S) \land P) \land \neg (P \lor Q))  \\
+  &\lor (\neg (R \lor S) \land ((\neg P \lor Q) \land R)) \\
+  &\lor ( (\neg R \lor S) \land P) \land ((\neg P \lor Q) \land R)) \\
+  &= (\neg (P \lor Q \lor R \lor S)  \\
+  &\lor ( (\neg R \lor S) \land P) \land ((\neg P \lor Q) \land R)) \\
+  &= (\neg (P \lor Q \lor R \lor S)  \\
+  & \lor ( (\neg R \lor S) \land (\neg P \lor Q) \land R \land P)) \\
+  &= (\neg (P \lor Q \lor R \lor S) \lor (P \land Q \land R \land S) \\
+  \varphi(M, N, P, Q, R, S) &= (\neg (R \lor S) \lor ((\neg R \lor S) \land P)) \land (\neg (P \lor Q) \lor ((\neg P \lor Q) \land R)) \land M \land \neg N \\
+  &= ((\neg (P \lor Q \lor R \lor S)) \lor (P \land Q \land \land R \land S))) \land M \land \neg N \\
+  &= (\neg P \land \neg Q \land \neg R \land \neg S \land M \land \neg N) \lor (P \land Q \land R \land S \land M \land \neg N) \\
+\end{align*}
+
+\paragraph{6.3}
+\inputminted{haskell}{code.hs}
+\end{document}

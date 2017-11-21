@@ -1,0 +1,85 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} first argument is m, the length of the list}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the second argument is n, the number in decimal}
+
+\PYG{n+nf}{bin} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]}
+\PYG{n+nf}{bin} \PYG{l+m+mi}{0} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{k+kt}{[]}
+\PYG{n+nf}{bin} \PYG{n}{m} \PYG{n}{n} \PYG{o+ow}{=} \PYG{n}{bin} \PYG{p}{(}\PYG{n}{m} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{p}{(}\PYG{n}{n} \PYG{p}{`}\PYG{n}{div}\PYG{p}{`} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{++} \PYG{p}{[}\PYG{k+kr}{if} \PYG{p}{(}\PYG{n}{mod} \PYG{n}{n} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{1} \PYG{k+kr}{then} \PYG{k+kt}{True} \PYG{k+kr}{else} \PYG{k+kt}{False}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} take a list of bool as a input,}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} returns a int in the end}
+\PYG{n+nf}{decHelper} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int}
+\PYG{n+nf}{decHelper} \PYG{k+kt}{[]} \PYG{n}{x} \PYG{o+ow}{=} \PYG{n}{x}
+\PYG{n+nf}{decHelper} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{n}{y} \PYG{o+ow}{=} \PYG{n}{decHelper} \PYG{n}{xs} \PYG{p}{(}\PYG{n}{y} \PYG{o}{*} \PYG{l+m+mi}{2} \PYG{o}{+} \PYG{p}{(}\PYG{k+kr}{if} \PYG{n}{x} \PYG{k+kr}{then} \PYG{l+m+mi}{1} \PYG{k+kr}{else} \PYG{l+m+mi}{0}\PYG{p}{))}
+
+\PYG{n+nf}{dec} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int}
+\PYG{n+nf}{dec} \PYG{n}{lst} \PYG{o+ow}{=} \PYG{n}{decHelper} \PYG{n}{lst} \PYG{l+m+mi}{0}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} bit function that only works on one bit(or boolean)}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} takes the input and do the job}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} draw the entire truth table here actually}
+\PYG{n+nf}{fa\PYGZus{}c} \PYG{o+ow}{::} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{o+ow}{::} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{fa\PYGZus{}c} \PYG{k+kt}{True} \PYG{k+kt}{True} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{fa\PYGZus{}c} \PYG{k+kt}{True} \PYG{k+kr}{\PYGZus{}} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{fa\PYGZus{}c} \PYG{k+kr}{\PYGZus{}} \PYG{k+kt}{True} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{fa\PYGZus{}c} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{k+kt}{False}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} end of fa\PYGZus{}c}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} simply draw a truth table here, to show what it does}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{False} \PYG{k+kt}{False} \PYG{k+kt}{False} \PYG{o+ow}{=} \PYG{k+kt}{False}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{False} \PYG{k+kt}{False} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{False} \PYG{k+kt}{True} \PYG{k+kt}{False} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{False} \PYG{k+kt}{True} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{k+kt}{False}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{True} \PYG{k+kt}{False} \PYG{k+kt}{False} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{True} \PYG{k+kt}{False} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{k+kt}{False}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{True} \PYG{k+kt}{True} \PYG{k+kt}{False} \PYG{o+ow}{=} \PYG{k+kt}{False}
+\PYG{n+nf}{fa\PYGZus{}s} \PYG{k+kt}{True} \PYG{k+kt}{True} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} end of truth table}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} helper function to do the carrying and sum up numbers}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} first argument is a list, representing a binary number}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} second argument is a list, a binary number}
+\PYG{n+nf}{rc\PYGZus{}helper} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]}
+\PYG{n+nf}{rc\PYGZus{}helper} \PYG{k+kt}{[]} \PYG{n}{xs} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{n}{xs}
+\PYG{n+nf}{rc\PYGZus{}helper} \PYG{n}{xs} \PYG{k+kt}{[]} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{n}{xs}
+\PYG{n+nf}{rc\PYGZus{}helper} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{n}{c} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{rc\PYGZus{}helper} \PYG{n}{xs} \PYG{n}{ys} \PYG{p}{(}\PYG{n}{fa\PYGZus{}c} \PYG{n}{x} \PYG{n}{y} \PYG{n}{c}\PYG{p}{))} \PYG{o}{++} \PYG{p}{[}\PYG{n}{fa\PYGZus{}s} \PYG{n}{x} \PYG{n}{y} \PYG{n}{c}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} simply call the helper function}
+\PYG{n+nf}{rc\PYGZus{}add} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]}
+\PYG{n+nf}{rc\PYGZus{}add} \PYG{n}{xs} \PYG{n}{ys} \PYG{o+ow}{=} \PYG{n}{rc\PYGZus{}helper} \PYG{p}{(}\PYG{n}{reverse} \PYG{n}{xs}\PYG{p}{)} \PYG{p}{(}\PYG{n}{reverse} \PYG{n}{ys}\PYG{p}{)} \PYG{k+kt}{False}
+
+\PYG{n+nf}{ha\PYGZus{}c} \PYG{o+ow}{::} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{ha\PYGZus{}c} \PYG{n}{x} \PYG{n}{y} \PYG{o+ow}{=} \PYG{n}{x} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{y}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} draw the truth table}
+\PYG{n+nf}{ha\PYGZus{}s} \PYG{o+ow}{::} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{ha\PYGZus{}s} \PYG{k+kt}{True} \PYG{k+kt}{False} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{ha\PYGZus{}s} \PYG{k+kt}{False} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{ha\PYGZus{}s} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{k+kt}{False}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} some helper function to sum up and do}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the carry}
+\PYG{n+nf}{calS} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]}
+\PYG{n+nf}{calS} \PYG{k+kt}{[]} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{n}{xs}
+\PYG{n+nf}{calS} \PYG{n}{xs} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{n}{xs}
+\PYG{n+nf}{calS} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{ha\PYGZus{}s} \PYG{n}{x} \PYG{n}{y}\PYG{p}{)} \PYG{k+kt}{:} \PYG{p}{(}\PYG{n}{calS} \PYG{n}{xs} \PYG{n}{ys}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} do carry in parallel}
+\PYG{n+nf}{calC} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]}
+\PYG{n+nf}{calC} \PYG{k+kt}{[]} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{n}{xs}
+\PYG{n+nf}{calC} \PYG{n}{xs} \PYG{k+kt}{[]} \PYG{o+ow}{=}\PYG{n}{xs}
+\PYG{n+nf}{calC} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{ha\PYGZus{}c} \PYG{n}{x} \PYG{n}{y}\PYG{p}{)} \PYG{k+kt}{:} \PYG{p}{(}\PYG{n}{calC} \PYG{n}{xs} \PYG{n}{ys}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} shift the carry by one}
+\PYG{n+nf}{carriesShift} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]}
+\PYG{n+nf}{carriesShift} \PYG{n}{x} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{tail} \PYG{n}{x}\PYG{p}{)} \PYG{o}{++} \PYG{p}{[}\PYG{k+kt}{False}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} if it is not all zero, calculate it repeat and repeat}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} if it is, return the result:w}
+\PYG{n+nf}{cla\PYGZus{}add} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Bool}\PYG{p}{]}
+\PYG{n+nf}{cla\PYGZus{}add} \PYG{n}{x} \PYG{n}{y} \PYG{o+ow}{=}
+    \PYG{k+kr}{if} \PYG{n}{not} \PYG{o}{\PYGZdl{}}\PYG{n}{or} \PYG{n}{x} \PYG{k+kr}{then} \PYG{n}{y}
+    \PYG{k+kr}{else} \PYG{k+kr}{if} \PYG{n}{not} \PYG{o}{\PYGZdl{}}\PYG{n}{or} \PYG{n}{y} \PYG{k+kr}{then} \PYG{n}{x}
+    \PYG{k+kr}{else} \PYG{n}{cla\PYGZus{}add} \PYG{p}{(}\PYG{n}{calS} \PYG{n}{x} \PYG{n}{y}\PYG{p}{)} \PYG{p}{(}\PYG{n}{carriesShift} \PYG{p}{(}\PYG{n}{calC} \PYG{n}{x} \PYG{n}{y}\PYG{p}{))}
+\end{Verbatim}

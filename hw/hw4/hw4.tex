@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\title{Intro to Computer Science Assignment 4}
+\date{2017-10-05}
+\author{Yiping Deng}
+\begin{document}
+\maketitle
+\paragraph{Problem 4.1}
+\subparagraph{a)}
+$a, b \in \sum^*$, and $R$ is the relations. Clearly, $(a, a) \in R$ since a text is a prefix of its self.
+$(a, b) \in R . (b, a) \in R \iff a = b$ Since if a is a prefix of b, b is the prefix of a, then they are the same(self-contained).
+$(a, b) \in R . (b, c) \in R \implies (a, c) \in R$ Since a text's prefix's prefix must be the prefix of the text.
+\subparagraph{b)}
+$a, b \in \sum^*$, and $R$ is the relations. Clearly, $(a, a) \not\in R$ since, by definiton, a proper prefix cannot equal to the string.
+$(a, b) \in R \implies b = aq, q \neq \emptyset \implies aq = b \implies a \neq bq \implies (b, a) \not\in R$
+\subparagraph{c)}
+Yes. all are comparable.
+
+\paragraph{Problem 4.2}
+\subparagraph{a)}
+$ f: A \mapsto B, g: B \mapsto C , g \circ f$ is bijective.
+Suppose $  x_1, x_2 \in A$ such that $f(x_1) = f(x_2) \implies g(f(x_1)) = g(f(x_2)) $ \\
+Since $g \circ f$ is bijective.
+$\implies x_1 = x_2 \implies$ f is injective.\\
+Given $ y \in C \implies \exists x \in A$ such that $g(f(x)) = y$ \\
+Let $z = f(x) \implies \forall y \in C \exists z \in B$ such that $g(z) = y$
+\subparagraph{b)}
+Given $ f: \{ 1 \} \mapsto \{ 1, 2, 3 \}, x \mapsto x, g: \{ 1 ,2 ,3 \} \mapsto \{ 4, 5, 6 \}, x \mapsto 2x $\\
+Clearly, $f \text{ is injective and } g \text{ is bijective, but } g \circ f \text{ is not surjective}$
+
+\subparagraph{c)}
+Given $f: \{ 1 \} \mapsto \{ 1, 2, 3 \}, x \mapsto x, g: \{ 1 ,2 ,3 \} \mapsto \{ 4 \}, x \mapsto 4$
+Clearly f is not surjective and g is not injective, but $g \circ f: \{ 1 \} \mapsto \{ 4 \}$ is bijective.
+
+
+
+\end{document}

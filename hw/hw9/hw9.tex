@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{minted}
+\title{Intro to Computer Science Assignment 9}
+\date{2017-11-16}
+\author{Yiping Deng}
+\begin{document}
+\maketitle
+\paragraph{9.1}
+\subparagraph{a)}
+\begin{center}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \# & Machine Code & Assembly Code & Description \\
+        \hline
+        0 & 001 1 0001 & LOAD \#0001 & Load memory at 0001 into the acc \\
+        1 & 010 0 1111 & STORE 1111 & Store the acc value to memory 1111 \\
+        2 & 001 1 0000 & LOAD \#0000 & Load 0000 into the acc \\
+        3 & 101 1 0100 & EQUAL \#0100 & If 0100 is equal to the acc, skip next instruction \\
+        4 & 110 1 0110 & JUMP \#0110 & Jump to 0110 \\
+        5 & 111 1 0000 & HALT \#0000 & Stop the program, \\
+        6 & 001 0 0011 & LOAD 0011 & Load memory location 0011 into acc \\
+        7 & 100 1 0001 & SUB \#0001 & Substract 0001 from the acc \\
+        8 & 010 0 0011 & STORE 0011 & Store acc to memory location 0011 \\
+        9 & 001 0 1111 & LOAD 1111 & Load memory at 1111 to acc \\
+        10 & 011 0 1111 & ADD 1111 & Add memory at 1111 to acc \\
+        11 & 010 0 1111 & STORE 1111 & Store acc to memory at 1111 \\
+        12 & 110 1 0010 & JUMP \#0010 & Jump back to line 2 \\
+        13 & 000 0 0000 & NOP & Nothing happens \\
+        14 & 000 0 0000 & NOP & Nothing happens \\
+        15 & 000 0 0000 & NOP & Nothing happens\\
+        \hline
+    \end{tabular}
+\end{center}
+\subparagraph{b)}
+\begin{enumerate}
+    \item Copy the value from memory 1 to memory 15
+    \item if the value at memory 3(the constant 0100, or 4) is is equal to 0, jump to line 6, elsewise stop the program
+    \item substact memory at 3 by 1
+    \item double the memory at 15
+    \item stop the program
+\end{enumerate}
+\subparagraph{c)}
+the initial value of memory block 1 is binary 0001 = decimal 1, it is copied into memory 15, and later memory block 15 is doubled to 2. \\
+then you jump back and doubled again, for 3 times. (memory block is decresed by 1 every iteration). \\
+When it hits 0, it will terminate. \\
+It means that it will be executed 4 times, in theory, you will have 1*2*2*2*2 = 16 \\
+It means it will overflow, eventually you will get 0 \\
+\paragraph{9.2}
+\subparagraph{a)}
+RAX, RBX, RCX, RDX, RBP, RSI, RDI, and RSP, R8, R9, R10, R11, R12, R13, R14, R15 are all the available register in x64 architecture \\
+RAX is a 64-bit register\\
+EAX is a 32-bit register, mapping to the lower 32-bit in RAX\\
+AX is a 16-bit register, mapping to the lower 16-bit in EAX\\
+AL is a 8-bit register, mapping to the lower 8-bit in AX\\
+AH is a 8-bit register, mapping to the higher 8-bit in AX(bit 8 to bit 15)\\
+\subparagraph{b)}
+The common addressing mode in x64 system is
+\begin{enumerate}
+    \item Immediate: the value is stored in the instruction.
+    \item Register to register: the operand is a memory address.
+    \item Indirect: by 8-bit, 16-bit, 32-bit displacement along any general register for base and index.
+        Can be multiplied by a factor of 1,2,4,8.
+    \item RIP-relative addressing: use a address relative to RIP register.
+\end{enumerate}
+The stack pointer, RSP, RBP, is maintained in the register(in CPU), RSP pointer points to the stack top, and RBP pointer points to the stack base. \\
+\subparagraph{c)}
+\inputminted{nasm}{code.asm}
+The assembly code simply add nums from 1 to 10, and return.
+It does the following job:
+\inputminted{c}{code.c}
+Eventually, it will return the result in \%rax
+\end{document}

@@ -1,0 +1,46 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Define a data type that behaves like a tuple}
+\PYG{k+kr}{data} \PYG{k+kt}{Move} \PYG{o+ow}{=} \PYG{k+kt}{MakeMove} \PYG{k+kt}{Int} \PYG{k+kt}{Int}
+\PYG{k+kr}{instance} \PYG{k+kt}{Show} \PYG{k+kt}{Move} \PYG{k+kr}{where}
+    \PYG{n}{show} \PYG{p}{(}\PYG{k+kt}{MakeMove} \PYG{n}{x} \PYG{n}{y}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{show} \PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+
+\PYG{n+nf}{solveHanoi} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Move}\PYG{p}{]}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the first argument is the number of element to move}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the second is the source of the element,in 1 to 3}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the third is the destination of the element, in 1 to 3}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} we should be able to satisfies all the courner cases}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} if it is one to move, make one move}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} if it is zero, give a empty lists}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} recursive case study:}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}  recursive case assumption:}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      when moving, only the source is occupied, the destination and the auxillary heap}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      is empty}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}  divide: break the case that move x  from source to destination into:}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      1. move (x \PYGZhy{} 1) from source to the auxillary(e.g.: if source is the first heap, }
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      the destination is the second heap, the auxillary is the third one)}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      2. move the remaining one, which is the biggest, from the source,}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      to the destination, which is empty right now. }
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      3. move (x \PYGZhy{} 1) elements in step 1) }
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      from auxillary to the destination}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}  conquer:}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      solve the subproblem step 1) and step 3) recursively.}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      note: after step 1), we actually breaks }
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      the recursive assumption.( there is one element}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      in the source) step 2) recover this }
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      state(it is non\PYGZhy{}recursive), then we can safely recursively}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      solve step 3) recursively}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}  combine:}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}      to get the result, we simply concatenate the 3 lists}
+\PYG{n+nf}{solveHanoi} \PYG{l+m+mi}{0} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{k+kt}{[]}
+\PYG{n+nf}{solveHanoi} \PYG{l+m+mi}{1} \PYG{n}{x} \PYG{n}{y} \PYG{o+ow}{=} \PYG{p}{[}\PYG{k+kt}{MakeMove} \PYG{n}{x} \PYG{n}{y}\PYG{p}{]}
+\PYG{n+nf}{solveHanoi} \PYG{n}{x} \PYG{l+m+mi}{1} \PYG{l+m+mi}{3} \PYG{o+ow}{=} \PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{l+m+mi}{1} \PYG{l+m+mi}{1} \PYG{l+m+mi}{3}\PYG{p}{)} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{2} \PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{n+nf}{solveHanoi} \PYG{n}{x} \PYG{l+m+mi}{3} \PYG{l+m+mi}{1} \PYG{o+ow}{=} \PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{3} \PYG{l+m+mi}{2} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{l+m+mi}{1} \PYG{l+m+mi}{3} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{2} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n+nf}{solveHanoi} \PYG{n}{x} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2} \PYG{o+ow}{=} \PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{1} \PYG{l+m+mi}{3} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{l+m+mi}{1} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{3} \PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{n+nf}{solveHanoi} \PYG{n}{x} \PYG{l+m+mi}{2} \PYG{l+m+mi}{1} \PYG{o+ow}{=} \PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{2} \PYG{l+m+mi}{3} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{3} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n+nf}{solveHanoi} \PYG{n}{x} \PYG{l+m+mi}{3} \PYG{l+m+mi}{2} \PYG{o+ow}{=} \PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{3} \PYG{l+m+mi}{1} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{l+m+mi}{1} \PYG{l+m+mi}{3} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{n+nf}{solveHanoi} \PYG{n}{x} \PYG{l+m+mi}{2} \PYG{l+m+mi}{3} \PYG{o+ow}{=} \PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{2} \PYG{l+m+mi}{1} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2} \PYG{l+m+mi}{3}\PYG{p}{)} \PYG{o}{++} \PYG{p}{(}\PYG{n}{solveHanoi} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{l+m+mi}{1} \PYG{l+m+mi}{3}\PYG{p}{)}
+
+\PYG{n+nf}{hanoi} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Move}\PYG{p}{]}
+\PYG{n+nf}{hanoi} \PYG{n}{x} \PYG{o+ow}{=} \PYG{n}{solveHanoi} \PYG{n}{x} \PYG{l+m+mi}{1} \PYG{l+m+mi}{3}
+\end{Verbatim}

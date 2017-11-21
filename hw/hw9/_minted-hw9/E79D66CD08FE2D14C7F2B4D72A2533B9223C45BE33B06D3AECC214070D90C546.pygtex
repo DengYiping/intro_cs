@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nf}{.global} \PYG{n+nv}{main} \PYG{c+c1}{;make the symbol global so that other can access this main function}
+    \PYG{n+nf}{.text} \PYG{c+c1}{; tell the assembler it is text segment(instruction) }
+\PYG{n+nl}{main:}
+    \PYG{n+nf}{xor}     \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rax}\PYG{p}{,} \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rax} \PYG{c+c1}{; clear the rax register }
+    \PYG{n+nf}{mov}     \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rax}\PYG{p}{,} \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rbx} \PYG{c+c1}{; copy the value of rax register into rbx register }
+\PYG{n+nl}{.L1:}
+    \PYG{n+nf}{add}     \PYG{k+kc}{\PYGZdl{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rbx} \PYG{c+c1}{; add 1 to rbx }
+    \PYG{n+nf}{add}     \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rbx}\PYG{p}{,} \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rax} \PYG{c+c1}{; add value of rbx to rax }
+    \PYG{n+nf}{cmp}     \PYG{k+kc}{\PYGZdl{}}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{o}{\PYGZpc{}}\PYG{n+nb}{rbx} \PYG{c+c1}{; set condition flag by minus rbx \PYGZhy{} 10 }
+    \PYG{n+nf}{jne}     \PYG{n+nv}{.L1} \PYG{c+c1}{; jump to line L1 if rbx is not 10 }
+    \PYG{n+nf}{ret} \PYG{c+c1}{; return the value in rax }
+\end{Verbatim}

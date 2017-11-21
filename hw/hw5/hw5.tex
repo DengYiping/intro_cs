@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{minted}
+\title{Intro to Computer Science Assignment 5}
+\date{2017-10-12}
+\author{Yiping Deng}
+\begin{document}
+\maketitle
+\paragraph{Problem 5.1}
+$\text{define the base in decimal as } B$\\
+$\gamma^2 = \gamma, \gamma + \gamma = \gamma \implies \gamma = 0$\\
+$\alpha \neq \gamma, \alpha^2 = \alpha \implies \alpha = 1$\\
+$\beta = \alpha + \alpha = 1 + 1 = 2$\\
+$\delta^2 = \beta\beta \implies \delta^2 = \beta \cdot B + \beta = 2 \cdot B + 2$\\
+$\delta + \delta = \alpha\alpha = B \cdot \alpha + \alpha = B + 1$\\
+$\delta^2 = 2(B + 1) = 2(\delta + \delta) = 4\delta \implies \delta = 4$\\
+$2\delta = \alpha\alpha = 8 \implies 8 = B + 1 \implies B = 7$\\
+$ 0 = \gamma, 1 = \alpha, 2 = \beta, 4 = \delta, B = 7$\\
+$ 99 = 201_7 \implies 99 = \beta\gamma\alpha$
+
+\paragraph{Problem 5.2}
+\subparagraph{a)}
+$ 1 = 0001_5 \implies -1 = 4443_5 + 1 = 4444_5;$\\
+$ 8 = 0013_5 \implies -8 = 4431_5 + 1 = 4432_5;$\\
+\subparagraph{b)}
+$4444_5 + 4432_5 = 4431_5 \text{ minus 1 and flip digit } \implies \text{ absolute value is } 0014_5 = 1 \cdot 5 + 4 = 9$
+
+\paragraph{Problem 5.3}
+\subparagraph{a)}
+-4.2, first take the sign out, set the first S = 1\\
+normalize it using the exponential of 2, we have $ 4.2 = 1.05 * 2^2$\\
+remove the heading one in the significant digit, we have $ 4.2 = 1 * 2^2 + 0.05 * 2^2$ For the exponential part, add 127 to its exponential $ 127 + 2 = 129$, convert it to binary form, we have 
+$129_10 = 2^7 + 1 = 10000001_2$\\
+Now convert the signficant part, $0.05$ to its binary form $ 0 * 2^-1 + 0  * 2^-2 + 0 * 2^-3 + 0 * 2^-4 + 1 * 2^-5 ... $\\
+So its binart form is $00001100110011001100110_2$\\
+Clearly, its binart form is 1 10000001 00001100110011001100110
+\subparagraph{b)}
+The decimal 1.05 is stored as $.05$ in the float number
+
+\paragraph{Problem 5.4} Use a helper function inside to allow tail recursion call.
+\inputminted{haskell}{test.hs}
+\end{document}

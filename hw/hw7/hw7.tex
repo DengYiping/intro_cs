@@ -1,0 +1,127 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{minted}
+\title{Intro to Computer Science Assignment 7}
+\date{2017-11-01}
+\author{Yiping Deng}
+\begin{document}
+\maketitle
+\paragraph{a)}
+\begin{align*}
+    \varphi(W, X, Y, Z) = (\neg W \land X \land Y) \lor
+    (X \land Y \land Z) \lor
+    (W \land \neg X) \lor
+    (W \land Y) \\
+\end{align*}
+\textbf{The truth table:} \\
+\begin{tabular}{ | p{2cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{3cm} |}
+    \hline
+    minterm & W & X & Y & Z & $\varphi(W, X, Y, Z)$ \\
+    \hline
+    - & 0 & 0 & 0 & 0 & 0 \\
+    - & 0 & 0 & 0 & 1 & 0 \\
+    - & 0 & 0 & 1 & 0 & 0 \\
+    - & 0 & 0 & 1 & 1 & 0 \\
+    - & 0 & 1 & 0 & 0 & 0 \\
+    $m_5$ & 0 & 1 & 0 & 1 & 1 \\
+    - & 0 & 1 & 1 & 0 & 0 \\
+    $m_7$ & 0 & 1 & 1 & 1 & 1 \\
+    $m_8$ & 1 & 0 & 0 & 0 & 1 \\
+    $m_9$ & 1 & 0 & 0 & 1 & 1 \\
+    $m_{10}$ & 1 & 0 & 1 & 0 & 1 \\
+    $m_{11}$ & 1 & 0 & 1 & 1 & 1 \\
+    - & 1 & 1 & 0 & 0 & 0 \\
+    - & 1 & 1 & 0 & 1 & 0 \\
+    $m_{14}$ & 1 & 1 & 1 & 0 & 1 \\
+    $m_{15}$ & 1 & 1 & 1 & 1 & 1 \\
+    \hline
+\end{tabular}
+\begin{align*}
+    \varphi(W, X, Y, Z) &= (\neg W \land X \land \neg Y \land Z) \lor \\
+    &(\neg W \land X \land Y \land Z) \lor \\
+    &(W \land \neg X \land \neg Y \land \neg Z) \lor \\
+    &(W \land \neg X \land \neg Y \land Z) \lor \\
+    &(W \land \neg X \land Y \land \neg Z) \lor \\
+    &(W \land \neg X \land Y \land Z) \lor \\
+    &(W \land X \land Y \land \neg Z) \lor \\
+    &(W \land X \land Y \land Z) \\
+\end{align*}
+\paragraph{b)}
+original table \\
+\begin{tabular}{ | p{2cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{3cm} |}
+    \hline
+    minterm & W & X & Y & Z & $\varphi(W, X, Y, Z)$ \\
+    \hline
+    $m_5$ & 0 & 1 & 0 & 1 & 1 \\
+    $m_7$ & 0 & 1 & 1 & 1 & 1 \\
+    $m_8$ & 1 & 0 & 0 & 0 & 1 \\
+    $m_9$ & 1 & 0 & 0 & 1 & 1 \\
+    $m_{10}$ & 1 & 0 & 1 & 0 & 1 \\
+    $m_{11}$ & 1 & 0 & 1 & 1 & 1 \\
+    $m_{14}$ & 1 & 1 & 1 & 0 & 1 \\
+    $m_{15}$ & 1 & 1 & 1 & 1 & 1 \\
+    \hline
+\end{tabular}
+\\ sort this table by the number of true variables \\
+\begin{tabular}{ | p{2cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{3cm} |}
+    \hline
+    minterm & W & X & Y & Z & $\varphi(W, X, Y, Z)$ \\
+    \hline
+    $m_8$ & 1 & 0 & 0 & 0 & 1 \\
+    \hline
+    $m_5$ & 0 & 1 & 0 & 1 & 1 \\
+    $m_9$ & 1 & 0 & 0 & 1 & 1 \\
+    $m_{10}$ & 1 & 0 & 1 & 0 & 1 \\
+    \hline
+    $m_7$ & 0 & 1 & 1 & 1 & 1 \\
+    $m_{11}$ & 1 & 0 & 1 & 1 & 1 \\
+    $m_{14}$ & 1 & 1 & 1 & 0 & 1 \\
+    \hline
+    $m_{15}$ & 1 & 1 & 1 & 1 & 1 \\
+    \hline
+\end{tabular}
+\\ combine \\
+\begin{tabular}{ | p{2cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{3cm} |}
+    \hline
+    minterm & W & X & Y & Z & $\varphi(W, X, Y, Z)$ \\
+    \hline
+    $m_{8,9}$ & 1 & 0 & 0 & - & 1 \\
+    $m_{8,10}$ & 1 & 0 & - & 0 & 1 \\
+    $m_{5,7}$ & 0 & 1 & - & 1 & 1 \\
+    $m_{7, 15}$ & - & 1 & 1 & 1 & 1 \\
+    $m_{9,11}$ & 1 & 0 & - & 1 & 1\\
+    $m_{10,11}$ & 1 & 0 & 1 & - & 1\\
+    $m_{11,15}$ & 1 & - & 1 & 1 & 1 \\
+    $m_{14,15}$ & 1 & 1 & 1 & - & 1 \\
+    \hline
+\end{tabular}
+\\
+even further \\
+\begin{tabular}{ | p{2cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{3cm} |}
+    \hline
+    minterm & W & X & Y & Z & $\varphi(W, X, Y, Z)$ \\
+    \hline
+    $m_{7,15}$ & - & 1 & 1 & 1 & 1 \\
+    $m_{5,7}$ & 0 & 1 & - & 1 & 1 \\
+    $m_{8,9,10,11}$ & 1 & 0 & - & - & 1 \\
+    $m_{10,11,14,15}$ & 1 & - & 1 & - & 1 \\
+    \hline
+\end{tabular}
+
+\paragraph{c)}
+chart \\
+\begin{tabular}{ | p{2cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | }
+    \hline
+    prime & $m_8$ & $m_5$ & $m_9$ & $m_{10}$ & $m_7$ & $m_{11}$ & $m_{14}$ & $m_{15}$ \\
+    \hline
+    $m_{7,15}$ & - & - & - & - & * & - & - & * \\
+    $m_{5,7}$ & - & * & - & - & * & - & - & - \\
+    $m_{8,9,10,11}$ & * & - & * & * & - & * & - & - \\
+    $m_{10,11,14,15}$ & - & - & - & * & - & * & * & * \\
+    \hline
+\end{tabular}
+\\
+clearly, only $m_{5,7}$, $m_{8,9,10,11}$, $m_{10,11,14,15}$ is essential. \\
+we write down $(\neg W \land X \land Z) \lor (W \land \neg X) \lor (W \land Y)$
+\end{document}
