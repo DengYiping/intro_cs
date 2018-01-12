@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZlt{}stdio.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZlt{}unistd.h\PYGZgt{}}
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{**} \PYG{n}{argv}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{fd}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{depth} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{c+cm}{/* keep track of number of generations from original */}
+    \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{;}
+    \PYG{n}{pipe}\PYG{p}{(}\PYG{n}{fd}\PYG{p}{);}
+    \PYG{k}{for}\PYG{p}{(;} \PYG{n}{argc} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{argc}\PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{if}\PYG{p}{(}\PYG{l+m+mi}{0} \PYG{o}{==} \PYG{n}{fork}\PYG{p}{())\PYGZob{}}
+            \PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)} \PYG{n}{fork}\PYG{p}{();}
+            \PYG{n}{write}\PYG{p}{(}\PYG{n}{fd}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{o}{\PYGZam{}}\PYG{n}{i}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+            \PYG{n}{depth} \PYG{o}{+=} \PYG{l+m+mi}{1}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{n}{close}\PYG{p}{(}\PYG{n}{fd}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]);}  \PYG{c+cm}{/* close the pipe so that it will not wait forever */} 
+    \PYG{k}{if}\PYG{p}{(} \PYG{n}{depth} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{p}{)} \PYG{p}{\PYGZob{}} \PYG{c+cm}{/* original process */}
+      \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}
+      \PYG{k}{while}\PYG{p}{(}\PYG{n}{read}\PYG{p}{(}\PYG{n}{fd}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{o}{\PYGZam{}}\PYG{n}{depth}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{)}
+        \PYG{n}{i} \PYG{o}{+=} \PYG{l+m+mi}{1}\PYG{p}{;}
+      \PYG{n}{printf}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}\PYGZpc{}d total processes spawned}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{i}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

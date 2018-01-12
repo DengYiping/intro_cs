@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} assumption}
+    \PYG{n}{foldr} \PYG{n}{op1} \PYG{n}{e} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{n}{foldl} \PYG{n}{op2} \PYG{n}{e} \PYG{n}{xs}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} proof}
+    \PYG{n}{foldl} \PYG{n}{op2} \PYG{n}{e} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{foldl} \PYG{n}{op2} \PYG{p}{(}\PYG{n}{e} \PYG{p}{`}\PYG{n}{op2}\PYG{p}{`} \PYG{n}{x}\PYG{p}{)} \PYG{n}{xs}
+    \PYG{o+ow}{=} \PYG{n}{foldl} \PYG{n}{op2} \PYG{p}{(}\PYG{n}{x} \PYG{p}{`}\PYG{n}{op1}\PYG{p}{`} \PYG{n}{e}\PYG{p}{)} \PYG{n}{xs}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} using the first rule}
+    \PYG{o+ow}{=} \PYG{n}{x} \PYG{p}{`}\PYG{n}{op1}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldl} \PYG{n}{op2} \PYG{n}{e} \PYG{n}{xs}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} by induction hypothesis}
+    \PYG{o+ow}{=} \PYG{n}{x} \PYG{p}{`}\PYG{n}{op1}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldr} \PYG{n}{op1} \PYG{n}{e} \PYG{n}{xs}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} put it inside of foldr}
+    \PYG{o+ow}{=} \PYG{n}{foldr} \PYG{n}{op1} \PYG{n}{e} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)}
+\end{Verbatim}

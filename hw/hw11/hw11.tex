@@ -1,0 +1,120 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{minted}
+\usepackage{titlesec}
+\usepackage[a4paper,margin=1in,footskip=0.25in]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%basic page layout
+
+%draw finite state machine
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+%header and footer settings
+\lhead{Intro CS Assignment 11}
+\chead{Yiping Deng}
+\rhead{\today}
+
+\titlelabel{\thetitle\enspace}
+
+\begin{document}
+\title{Computer Science Assignment 11}
+\author{Yiping Deng}
+\maketitle
+\thispagestyle{fancy}
+\section*{Problem 11.1}
+\subsection*{1)}
+\begin{align*}
+    \delta &= \{((S, a), S1), ((S, b), S0), \\
+    &((S0, b), S0), ((S0, a), S1),\\
+    &((S1, a), S2), ((S1, b), S0) \\
+    &((S2, a), S2), ((S2, b), S2)\} \\
+    S &= \{S0, S1, S2, S3\} \\
+    s0 &= S \\
+    F &= \{S0\} \\
+\end{align*}
+\subsection*{2)}
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+    \node[initial,state] (S)      {$S$};
+    \node[state,accepting] (S0) [right of=S]             {$S0$};
+    \node[state]         (S1) [below right of=S0]  {$S1$};
+    \node[state]         (S2) [right of=S1] {$S2$};
+
+
+        \path[->] (S) edge [bend right]      node {a} (S1)
+                      edge      node {b} (S0)
+        (S0)  edge [loop above] node {b} (S0)
+                edge              node {a} (S1)
+            (S1) edge [bend left]  node {b} (S0)
+                edge              node {a} (S2)
+                (S2) edge [loop above] node {a} (S2)
+                (S2) edge [loop below] node {b} (S2);
+    \end{tikzpicture}
+\end{figure}
+As shown in the figure, S is the inital state, S0 is the accepting state.
+\subsection*{3)}
+The following Haskell code will represent the finite state machine above.
+\inputminted{Haskell}{code.hs}
+\subsection*{4)}
+The regular grammar that generates the patterns is described below.
+\begin{align*}
+    G &= (N, \Sigma, P, S) \\
+    N &= \{S, T, U \} \\
+    \Sigma &= \{a, b\} \\
+    P &= \{ S \mapsto aT, S \mapsto bU, \\
+    &U \mapsto \epsilon, U \mapsto bU, \\
+    &U \mapsto aT, \\
+    &T \mapsto bU \}
+\end{align*}
+
+\section*{Problem 11.2}
+\subsection*{a)}
+The following is the mathematical definition of increment Turing machine.
+\begin{align*}
+    s0 &= S0 \\
+    \Gamma &= \{ 0, 1, \$ \} \\
+    b &= \_ \\
+    F &= \{ \} \\
+    \delta &= \{ (S0, \$, S1, \$, R), \\
+    &(S1, \$, S2, \$, L), (S1, 0, S1, 0, R), (S1, 1, S1, 1, R), \\
+    &(S2, 0, S3, 1, L), (S2, 1, S2, 0, L), \\
+    &(S3, 0, S3, 0, L), (S3, 1, S3, 1, L) \} \\
+\end{align*}
+S0 is the initial state, just skip a \$ symbol. \\
+S1 is the skip state, skipping until hit the last \$ symbol. \\
+S2 is the carried state, do the carried addition. \\
+S3 is the non-carried state.
+
+The following is the Haskell code validates the Turing machine.
+\inputminted{Haskell}{turing_inc.hs}
+
+\subsection*{b}
+Mathematical definition of decrement Turing machine 
+\begin{align*}
+    s0 &= S0 \\
+    \Gamma &= \{ 0, 1, \$ \} \\
+    b &= \_ \\
+    F &= \{ \} \\
+    \delta &= \{ (S0, \$, S1, \$, R), \\
+    &(S1, \$, S2, \$, L), (S1, 0, S1, 1, R), (S1, 1, S1, 0, R), \\
+    &(S2, 0, S3, 1, L), (S2, 1, S2, 0, L), \\
+    &(S3, 0, S3, 0, L), (S3, 1, S3, 1, L) \\
+    &(S4, 1, S4, 0, R), (S4, 0, S4, 1, R) \} \\
+\end{align*}
+S0 is the inital state, just skip a \$ symbol. \\
+S1 is the right flip state, flip the bits until hit \$. \\
+S2 is the carried state, do the carried addition. \\
+S3 is the non-carried state.
+S4 is the flip state, flip the bits back until hit \$. \\
+
+This is the validating Haskell code. 
+\inputminted{Haskell}{turing_dec.hs}
+
+\subsection*{c)}
+\end{document}

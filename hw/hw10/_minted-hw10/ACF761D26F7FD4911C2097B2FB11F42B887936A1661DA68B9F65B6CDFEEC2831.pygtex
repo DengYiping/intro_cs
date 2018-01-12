@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{foldr} \PYG{n}{op1} \PYG{n}{e} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{n}{e} \PYG{o+ow}{=} \PYG{n}{foldl} \PYG{n}{op2} \PYG{n}{e} \PYG{k+kt}{[]}
+\end{Verbatim}

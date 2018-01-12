@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{foldl} \PYG{n}{op}\PYG{p}{`} \PYG{n}{a} \PYG{p}{(}\PYG{n}{reverse} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{))} \PYG{o+ow}{=}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} since it is reversed}
+    \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{foldl} \PYG{n}{op}\PYG{p}{`} \PYG{n}{a} \PYG{p}{(}\PYG{n}{reverse} \PYG{n}{xs}\PYG{p}{))} \PYG{p}{`}\PYG{n}{op}\PYG{p}{``} \PYG{n}{x}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} by inductive hypothesis}
+    \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{foldr} \PYG{n}{op} \PYG{n}{a} \PYG{n}{xs}\PYG{p}{)} \PYG{p}{`}\PYG{n}{op}\PYG{p}{``} \PYG{n}{x}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} by using the rule}
+    \PYG{o+ow}{=} \PYG{n}{x} \PYG{p}{`}\PYG{n}{op}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldr} \PYG{n}{op} \PYG{n}{a} \PYG{n}{xs}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} by moving inside}
+    \PYG{o+ow}{=} \PYG{n}{foldr} \PYG{n}{op} \PYG{n}{a} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)}
+\end{Verbatim}

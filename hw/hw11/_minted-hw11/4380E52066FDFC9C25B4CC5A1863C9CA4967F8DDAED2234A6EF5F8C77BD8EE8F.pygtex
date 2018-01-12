@@ -1,0 +1,37 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the states of FSM}
+\PYG{k+kr}{data} \PYG{k+kt}{State} \PYG{o+ow}{=} \PYG{k+kt}{S} \PYG{o}{|} \PYG{k+kt}{S0} \PYG{o}{|} \PYG{k+kt}{S1} \PYG{o}{|} \PYG{k+kt}{S2}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} executing the delta function}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} takes a State, retrives the top Char from String, execute}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the finite state machine}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} until it ends}
+\PYG{n+nf}{accepts} \PYG{o+ow}{::} \PYG{k+kt}{State} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{String} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} initial state}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S} \PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}a\PYGZsq{}}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S1} \PYG{n}{xs}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S} \PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}b\PYGZsq{}}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S0} \PYG{n}{xs}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} move out of initial state to S0}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} S0 state movement}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S0} \PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}a\PYGZsq{}}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S1} \PYG{n}{xs}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S0} \PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}b\PYGZsq{}}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S0} \PYG{n}{xs}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S0} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} this is a accepting state}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} S1 state movement}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} failing case}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S1} \PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}b\PYGZsq{}}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S0} \PYG{n}{xs}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S2} \PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}a\PYGZsq{}}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S2} \PYG{n}{xs}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} S2 and others}
+\PYG{n+nf}{accepts} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{=} \PYG{k+kt}{False}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} covering up all the failure case, including S2}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} this also covers non\PYGZhy{}accepting state case}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} also covers the case the string is not in }
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the char set1}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} use this function to test}
+\PYG{n+nf}{decide} \PYG{o+ow}{::} \PYG{k+kt}{String} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{decide} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S}
+\end{Verbatim}

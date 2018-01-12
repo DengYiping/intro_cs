@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{foldl} \PYG{n}{op} \PYG{n}{e} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{op} \PYG{n}{e} \PYG{n}{x}\PYG{p}{)} \PYG{p}{`}\PYG{n}{op}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldl} \PYG{n}{op} \PYG{n}{e} \PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{x} \PYG{p}{`}\PYG{n}{op}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldl} \PYG{n}{op} \PYG{n}{e} \PYG{n}{xs}\PYG{p}{)}
+    \PYG{n}{foldr} \PYG{n}{op} \PYG{n}{e} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{x} \PYG{p}{`}\PYG{n}{op}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldr} \PYG{n}{op} \PYG{n}{e} \PYG{n}{xs}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} by inductive hypothesis}
+    \PYG{n}{foldl} \PYG{n}{op} \PYG{n}{e} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{n}{foldr} \PYG{n}{op} \PYG{n}{e} \PYG{n}{xs}
+    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} which implies}
+    \PYG{n}{foldl} \PYG{n}{op} \PYG{n}{e} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{x} \PYG{p}{`}\PYG{n}{op}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldl} \PYG{n}{op} \PYG{n}{e} \PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{x} \PYG{p}{`}\PYG{n}{op}\PYG{p}{`} \PYG{p}{(}\PYG{n}{foldr} \PYG{n}{op} \PYG{n}{e} \PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{foldr} \PYG{n}{op} \PYG{n}{e} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)}
+\end{Verbatim}

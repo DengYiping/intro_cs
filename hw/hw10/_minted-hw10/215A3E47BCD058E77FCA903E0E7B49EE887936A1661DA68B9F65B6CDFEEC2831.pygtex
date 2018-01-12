@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{foldr} \PYG{n}{op} \PYG{n}{a} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{n}{a} \PYG{o+ow}{=} \PYG{n}{foldl} \PYG{n}{op}\PYG{p}{`} \PYG{n}{a} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{n}{foldl} \PYG{n}{op}\PYG{p}{`} \PYG{n}{a} \PYG{p}{(}\PYG{n}{reverse} \PYG{k+kt}{[]}\PYG{p}{)}
+\end{Verbatim}

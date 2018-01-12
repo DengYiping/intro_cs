@@ -1,0 +1,41 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+na}{.text}
+    \PYG{n+na}{.global} \PYG{n+no}{\PYGZus{}start}
+
+\PYG{n+nl}{\PYGZus{}start:}
+    \PYG{n+nf}{mov}    \PYG{p}{(}\PYG{n+nv}{\PYGZpc{}rsp}\PYG{p}{),} \PYG{n+nv}{\PYGZpc{}r8} \PYG{c}{\PYGZsh{}\PYGZsh{} use r8  to store argc}
+\PYG{n+no}{.LOOP\PYGZus{}START}\PYG{p}{:}
+    \PYG{n+nf}{cmp}    \PYG{n+no}{\PYGZdl{}2}\PYG{p}{,} \PYG{n+nv}{\PYGZpc{}r8} \PYG{c}{\PYGZsh{}\PYGZsh{} compare with 2, if smaller, skip loop}
+    \PYG{n+no}{jl}     \PYG{n+no}{.LOOP\PYGZus{}END} \PYG{c}{\PYGZsh{}\PYGZsh{} end the loop if small than 2}
+    \PYG{n+no}{mov}    \PYG{n+no}{\PYGZdl{}57}\PYG{p}{,} \PYG{n+nv}{\PYGZpc{}rax} \PYG{c}{\PYGZsh{}\PYGZsh{} system call number}
+    \PYG{n+no}{syscall}          \PYG{c}{\PYGZsh{}\PYGZsh{} make the system call}
+    \PYG{n+no}{test}   \PYG{n+nv}{\PYGZpc{}rax}\PYG{p}{,} \PYG{n+nv}{\PYGZpc{}rax}
+    \PYG{n+nf}{jne}    \PYG{n+no}{.IF\PYGZus{}END} \PYG{c}{\PYGZsh{}\PYGZsh{} if it is not 0, jump to the end of if}
+    \PYG{n+no}{mov}    \PYG{n+no}{\PYGZdl{}57}\PYG{p}{,} \PYG{n+nv}{\PYGZpc{}rax} \PYG{c}{\PYGZsh{}\PYGZsh{} take the system call fork number}
+    \PYG{n+no}{syscall}         \PYG{c}{\PYGZsh{}\PYGZsh{} make the system call, again}
+\PYG{n+no}{.IF\PYGZus{}END}\PYG{p}{:}
+    \PYG{n+nf}{dec}    \PYG{n+nv}{\PYGZpc{}r8}        \PYG{c}{\PYGZsh{}\PYGZsh{} minus 1 to the rcx(the argc)}
+    \PYG{n+no}{cmp}    \PYG{n+no}{\PYGZdl{}1}\PYG{p}{,} \PYG{n+nv}{\PYGZpc{}r8}    \PYG{c}{\PYGZsh{}\PYGZsh{} compare r8 and 1}
+    \PYG{n+no}{jg}    \PYG{n+no}{.LOOP\PYGZus{}START}  \PYG{c}{\PYGZsh{}\PYGZsh{} jump back and start the loop if greater}
+\PYG{n+no}{.LOOP\PYGZus{}END}\PYG{p}{:}
+
+    \PYG{c}{\PYGZsh{}\PYGZsh{} use different approach to end the program}
+
+    \PYG{n+nf}{movl}    \PYG{n+no}{\PYGZdl{}len}\PYG{p}{,}\PYG{n+nv}{\PYGZpc{}edx}       \PYG{c}{\PYGZsh{}\PYGZsh{}  third argument: message length.}
+    \PYG{n+no}{movl}    \PYG{n+no}{\PYGZdl{}msg}\PYG{p}{,}\PYG{n+nv}{\PYGZpc{}ecx}       \PYG{c}{\PYGZsh{}\PYGZsh{} second argument: pointer to message to write.}
+    \PYG{n+no}{movl}    \PYG{n+no}{\PYGZdl{}1}\PYG{p}{,}\PYG{n+nv}{\PYGZpc{}ebx}	        \PYG{c}{\PYGZsh{}\PYGZsh{} first argument: file handle (stdout).}
+    \PYG{n+no}{movl}    \PYG{n+no}{\PYGZdl{}4}\PYG{p}{,}\PYG{n+nv}{\PYGZpc{}eax}	        \PYG{c}{\PYGZsh{}\PYGZsh{} system call number (sys\PYGZus{}write).}
+    \PYG{n+no}{int}     \PYG{n+no}{\PYGZdl{}0x80}           \PYG{c}{\PYGZsh{}\PYGZsh{} call kernel.}
+
+    \PYG{c}{\PYGZsh{}\PYGZsh{} and exit.}
+
+    \PYG{n+nf}{movl}    \PYG{n+no}{\PYGZdl{}0}\PYG{p}{,}\PYG{n+nv}{\PYGZpc{}ebx}         \PYG{c}{\PYGZsh{}\PYGZsh{} first argument: exit code.}
+    \PYG{n+no}{movl}    \PYG{n+no}{\PYGZdl{}1}\PYG{p}{,}\PYG{n+nv}{\PYGZpc{}eax}         \PYG{c}{\PYGZsh{}\PYGZsh{} system call number (sys\PYGZus{}exit).}
+    \PYG{n+no}{int}     \PYG{n+no}{\PYGZdl{}0x80}           \PYG{c}{\PYGZsh{}\PYGZsh{} call kernel.}
+
+\PYG{n+na}{.data}
+
+\PYG{n+nl}{msg:}
+        \PYG{n+na}{.ascii}  \PYG{l+s}{\PYGZdq{}x\PYGZbs{}n\PYGZdq{}}      \PYG{c}{\PYGZsh{} the string to print.}
+        \PYG{n+no}{len} \PYG{err}{=} \PYG{p}{.} \PYG{p}{\PYGZhy{}} \PYG{n+no}{msg}                  \PYG{c}{\PYGZsh{} length of the string.}
+\end{Verbatim}

@@ -1,0 +1,83 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{import} \PYG{n+nn}{Prelude} \PYG{k}{hiding} \PYG{p}{(}\PYG{n+nf}{head}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} give enough states to Turing machine}
+\PYG{k+kr}{data} \PYG{k+kt}{State} \PYG{o+ow}{=} \PYG{k+kt}{S0} \PYG{o}{|} \PYG{k+kt}{S1} \PYG{o}{|} \PYG{k+kt}{S2} \PYG{o}{|} \PYG{k+kt}{S3} \PYG{o}{|} \PYG{k+kt}{S4} \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} the tape is a string with index of current head}
+\PYG{k+kr}{data} \PYG{k+kt}{Tape} \PYG{o+ow}{=} \PYG{k+kt}{Tape} \PYG{k+kt}{String} \PYG{k+kt}{Int} \PYG{k+kr}{deriving} \PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Tape S}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} return the raw String under the Tape}
+\PYG{n+nf}{tapes} \PYG{o+ow}{::} \PYG{k+kt}{Tape} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{String}
+\PYG{n+nf}{tapes} \PYG{p}{(}\PYG{k+kt}{Tape} \PYG{n}{s} \PYG{k+kr}{\PYGZus{}}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{s}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} read from turing machine}
+\PYG{n+nf}{head} \PYG{o+ow}{::} \PYG{k+kt}{Tape} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Char} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{head} \PYG{p}{(}\PYG{k+kt}{Tape} \PYG{n}{xs} \PYG{n}{i}\PYG{p}{)} \PYG{n}{c} \PYG{o+ow}{=} \PYG{n}{xs} \PYG{o}{!!} \PYG{n}{i} \PYG{o}{==} \PYG{n}{c}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} move the tape left}
+\PYG{n+nf}{left} \PYG{o+ow}{::} \PYG{k+kt}{Tape} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Tape}
+\PYG{n+nf}{left} \PYG{p}{(}\PYG{k+kt}{Tape} \PYG{n}{xs} \PYG{n}{i}\PYG{p}{)}
+    \PYG{o}{|} \PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o+ow}{=} \PYG{k+kt}{Tape} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZus{}\PYGZdq{}} \PYG{o}{++} \PYG{n}{xs}\PYG{p}{)} \PYG{l+m+mi}{0}
+    \PYG{o}{|} \PYG{n}{otherwise} \PYG{o+ow}{=} \PYG{k+kt}{Tape} \PYG{n}{xs} \PYG{p}{(}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} move the tape right}
+\PYG{n+nf}{right} \PYG{o+ow}{::} \PYG{k+kt}{Tape} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Tape}
+\PYG{n+nf}{right} \PYG{p}{(}\PYG{k+kt}{Tape} \PYG{n}{xs} \PYG{n}{i}\PYG{p}{)}
+    \PYG{o}{|} \PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{o}{\PYGZgt{}=} \PYG{n}{length} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{k+kt}{Tape} \PYG{p}{(}\PYG{n}{xs} \PYG{o}{++} \PYG{l+s}{\PYGZdq{}\PYGZus{}\PYGZdq{}}\PYG{p}{)} \PYG{p}{(}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{o}{|} \PYG{n}{otherwise} \PYG{o+ow}{=} \PYG{k+kt}{Tape} \PYG{n}{xs} \PYG{p}{(}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} write to the tape}
+\PYG{n+nf}{write} \PYG{o+ow}{::} \PYG{k+kt}{Tape} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Char} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Tape}
+\PYG{n+nf}{write} \PYG{p}{(}\PYG{k+kt}{Tape} \PYG{n}{xs} \PYG{n}{i}\PYG{p}{)} \PYG{n}{c} \PYG{o+ow}{=} \PYG{k+kt}{Tape} \PYG{p}{(}\PYG{n}{replaceAt} \PYG{n}{i} \PYG{n}{c} \PYG{n}{xs}\PYG{p}{)} \PYG{n}{i}
+    \PYG{k+kr}{where} \PYG{n}{replaceAt} \PYG{l+m+mi}{0} \PYG{n}{nc} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{nc}\PYG{k+kt}{:}\PYG{n}{ys}
+          \PYG{n}{replaceAt} \PYG{n}{n} \PYG{n}{nc} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{replaceAt} \PYG{p}{(}\PYG{n}{n} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{n}{nc} \PYG{n}{ys}
+
+\PYG{n+nf}{accepts} \PYG{o+ow}{::} \PYG{k+kt}{State} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Tape} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Tape}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} initial state S0, move to flip state}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} directly move}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S0} \PYG{n}{tape} 
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}\PYGZdl{}\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S1} \PYG{p}{(}\PYG{n}{right} \PYG{n}{tape}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} flip state, move to the least signficant digit}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} flip 0 to 1, 1 to 0}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S1} \PYG{n}{tape}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}\PYGZdl{}\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S2} \PYG{p}{(}\PYG{n}{left} \PYG{n}{tape}\PYG{p}{)}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S1} \PYG{p}{(}\PYG{n}{right} \PYG{p}{(}\PYG{n}{write} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}1\PYGZsq{}}\PYG{p}{))}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}1\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S1} \PYG{p}{(}\PYG{n}{right} \PYG{p}{(}\PYG{n}{write} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} carried add state, write down 1 if 0 on tape}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} write down 0 if 1 on tape}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} carry of 1 on tape}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} moving to the left}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} hit the end, move to flip state again}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S2} \PYG{n}{tape}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S3} \PYG{p}{(}\PYG{n}{left} \PYG{p}{(}\PYG{n}{write} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}1\PYGZsq{}}\PYG{p}{))}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}1\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S2} \PYG{p}{(}\PYG{n}{left} \PYG{p}{(}\PYG{n}{write} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}}\PYG{p}{))}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}\PYGZdl{}\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S4} \PYG{p}{(}\PYG{n}{right} \PYG{n}{tape}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} none carried state, simply do nothing, just move until the end}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} hit the end, then move to flip state}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S3} \PYG{n}{tape}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S3} \PYG{p}{(}\PYG{n}{left} \PYG{n}{tape}\PYG{p}{)}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}1\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S3} \PYG{p}{(}\PYG{n}{left} \PYG{n}{tape}\PYG{p}{)}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}\PYGZdl{}\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S4} \PYG{p}{(}\PYG{n}{right} \PYG{n}{tape}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} flip the state, 1 to 0 , 0 map to 1}
+\PYG{n+nf}{accepts} \PYG{k+kt}{S4} \PYG{n}{tape}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S4} \PYG{p}{(}\PYG{n}{right} \PYG{p}{(}\PYG{n}{write} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}1\PYGZsq{}}\PYG{p}{))}
+    \PYG{o}{|} \PYG{n}{head} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}1\PYGZsq{}} \PYG{o+ow}{=} \PYG{n}{accepts} \PYG{k+kt}{S4} \PYG{p}{(}\PYG{n}{right} \PYG{p}{(}\PYG{n}{write} \PYG{n}{tape} \PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} if no transition defined, halt}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} in this case, it will be S4  hit \PYGZdl{} symbol, which is not defined}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} it will hit the halt and return the tape, which is decreased value}
+\PYG{n+nf}{accepts} \PYG{k+kr}{\PYGZus{}} \PYG{n}{tape} \PYG{o+ow}{=} \PYG{n}{tape}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} decrement function}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} takes a string like \PYGZdl{}010102\PYGZdl{} in binary}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} decrease the binary int by 1}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} return \PYGZdl{}01010\PYGZdl{} like binary string}
+\PYG{n+nf}{decrement} \PYG{o+ow}{::} \PYG{k+kt}{String} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{String}
+\PYG{n+nf}{decrement} \PYG{n}{x} \PYG{o+ow}{=} \PYG{n}{tapes} \PYG{o}{\PYGZdl{}}\PYG{n}{accepts} \PYG{k+kt}{S0} \PYG{p}{(}\PYG{k+kt}{Tape} \PYG{n}{x} \PYG{l+m+mi}{0}\PYG{p}{)}
+\end{Verbatim}
